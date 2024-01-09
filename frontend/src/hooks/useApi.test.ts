@@ -1,6 +1,6 @@
 import { useApi } from "./useApi";
 import { act, renderHook, waitFor } from "@testing-library/react";
-import { rest } from "msw";
+import { HttpResponse, http } from "msw";
 import { setupServer } from "msw/node";
 import { handlers } from "../../mock/handler";
 
@@ -23,8 +23,10 @@ describe("useApi", () => {
 
     it("GETリクエストでエラーが発生する", async () => {
       server.use(
-        rest.get(url, (_req, res, ctx) => {
-          return res(ctx.status(500));
+        http.get(url, () => {
+          return new HttpResponse("Internal server error", {
+            status: 500
+          })
         })
       );
 
@@ -49,8 +51,10 @@ describe("useApi", () => {
 
     it("POSTリクエストでエラーが発生する", async () => {
       server.use(
-        rest.post(url, (_, res, ctx) => {
-          return res(ctx.status(500));
+        http.get(url, () => {
+          return new HttpResponse("Internal server error", {
+            status: 500,
+          });
         })
       );
 

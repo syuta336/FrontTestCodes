@@ -1,10 +1,10 @@
-import { rest } from "msw";
+import { HttpResponse, http } from "msw";
 
 export const handlers = [
-  rest.get("http://localhost:3002/test", (_, res, ctx) => {
-    return res(ctx.json({ message: "Get data" }));
+  http.get("http://localhost:3002/test", () => {
+    return HttpResponse.json({ message: "Get data" });
   }),
-  rest.post("http://localhost:3002/test", (_, res, ctx) => {
-    return res(ctx.json({ message: "Post data" }));
+  http.post("http://localhost:3002/test", () => {
+    return HttpResponse.json({ message: "Post data" });
   }),
 ];
