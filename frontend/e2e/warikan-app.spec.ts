@@ -17,7 +17,7 @@ test.describe("割り勘アプリ", () => {
       const submitButton = page.getByRole("button");
       await submitButton.click();
 
-      await expect(page).toHaveURL(/.*group\/group1/);
+      await expect(page).toHaveURL(/.*\/group\/group1/);
     });
 
     test("バリデーションエラーが存在する場合グループが作成されずページ遷移しない", async ({
@@ -28,7 +28,7 @@ test.describe("割り勘アプリ", () => {
 
       await expect(page.getByText("グループ名は必須です")).toBeVisible();
       await expect(page.getByText("メンバーは2人以上必要です")).toBeVisible();
-      await expect(page).not.toHaveURL(/.*group\/group1/);
+      await expect(page).not.toHaveURL(/.*\/group\/group1/);
     });
   });
 
